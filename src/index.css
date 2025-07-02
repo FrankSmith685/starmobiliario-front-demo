@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+
+@layer utilities {
+  .responsive-padding {
+    @apply px-4 py-4 sm:px-6 xl:px-12;
+  }
+}
+
+/* html {
+  padding-inline: 16px;
+  padding-block: 16px;
+}
+
+@media (min-width: 600px) {
+  html {
+    padding-inline: 24px;
+    padding-block: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  html {
+    padding-inline: 48px;
+    padding-block: 16px;
+  }
+} */
