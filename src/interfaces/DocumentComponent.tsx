@@ -23,6 +23,12 @@ export type Variant =
   | "secondary"
   | "terciary"
   | "warning"
+
+export type VariantButton =
+  | "primary"
+  | "secondary"
+  | "terciary"
+  | "warning"
   | "primary-outline"
   | "secondary-outline"
   | "terciary-outline"
@@ -44,7 +50,7 @@ export interface CustomButtonProps {
   text: string;
   onClick: () => void;
   size?: "md" | "lg";
-  variant?: Variant;
+  variant?: VariantButton;
   icon?: ReactNode;
   uppercase?: boolean;
   fullWidth?: boolean;

@@ -4,12 +4,13 @@ import AppRouter from './routes/Router.tsx';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { AppProvider } from './context/appProvider.tsx';
 import HeaderNav from './components/HeaderNav/HeaderNav.tsx';
-// import { BrowserRouter } from 'react-router-dom'; // ✅ IMPORTANTE
+import { BrowserRouter } from 'react-router-dom';
 
 const theme = createTheme();
 
 createRoot(document.getElementById('root')!).render(
-  <AppProvider>
+  <BrowserRouter>
+    <AppProvider>
     {/* <BrowserRouter> */}
       <ThemeProvider theme={theme}>
         <HeaderNav />
@@ -17,4 +18,5 @@ createRoot(document.getElementById('root')!).render(
       </ThemeProvider>
     {/* </BrowserRouter> */}
   </AppProvider>
+  </BrowserRouter>
 );

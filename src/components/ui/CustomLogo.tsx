@@ -1,15 +1,22 @@
-import CustomImage from './CustomImage';
+import { useNavigate } from "react-router-dom";
+import CustomImage from "./CustomImage";
 
 export default function Logo({ isActive }: { isActive: boolean }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/");
+  };
+
   return (
-    <div className="w-[200px]">
-      <a href="/" className="flex items-center space-y-0 flex-col w-full">
+    <div className="max-w-[150px] w-full cursor-pointer" onClick={handleClick}>
+      <div className="flex items-center flex-col w-full">
         <CustomImage
-          name={isActive ? 'logo_black' : 'logo_white'}
+          name={isActive ? "logo_black" : "logo_white"}
           alt="starmobiliario"
-          className="object-contain transition-all duration-300 cursor-pointer !w-[auto] !h-[50px]"
+          className="object-contain transition-all duration-300 !w-auto !h-full"
         />
-      </a>
+      </div>
     </div>
   );
 }

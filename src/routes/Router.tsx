@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/home/HomePage";
 import ComponentPage from "../pages/components/ComponentPage";
 // import HeaderNav from "../components/HeaderNav/HeaderNav";
@@ -127,7 +127,7 @@ const AppRouter = () => {
 // }, []);
 
   return (
-    <Router>
+    // <Router>
       <Routes>
         {/* Rutas públicas (siempre accesibles) */}
         
@@ -163,7 +163,7 @@ const AppRouter = () => {
         {/* Página 404 para rutas inexistentes */}
         {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
-    </Router>
+    // </Router>
   );
 };
 

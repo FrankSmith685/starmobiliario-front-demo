@@ -5,23 +5,31 @@
   .responsive-padding {
     @apply px-4 py-4 sm:px-6 xl:px-12;
   }
-}
+  .text-primary {
+    color: #0A4C3D;
+  }
 
-/* html {
-  padding-inline: 16px;
-  padding-block: 16px;
-}
+  .hover\:text-primary:hover {
+    color: #f0fdfa;
+  }
 
-@media (min-width: 600px) {
-  html {
-    padding-inline: 24px;
-    padding-block: 16px;
+  .bg-primary {
+    background-color: #0A4C3D;
+  }
+
+  .bg-primary-hover{
+    background-color: #f0fdfa;
+  }
+
+  .hover\:bg-primary:hover {
+    background-color: #f0fdfa;
+  }
+
+  .border-primary {
+    border-color: #0A4C3D;
+  }
+
+  .hover\:border-primary:hover {
+    border-color: #f0fdfa;
   }
 }
-
-@media (min-width: 1200px) {
-  html {
-    padding-inline: 48px;
-    padding-block: 16px;
-  }
-} */

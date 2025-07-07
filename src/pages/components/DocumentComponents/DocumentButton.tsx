@@ -1,8 +1,8 @@
 import { useState, type ElementType, type FC } from "react";
 import { Stack, Box, Typography, Paper } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import { CustomButton, type Variant } from "../../../components/ui/CustomButton";
-import type { PropItem } from "../../../interfaces/DocumentComponent";
+import { CustomButton } from "../../../components/ui/CustomButton";
+import type { PropItem, VariantButton } from "../../../interfaces/DocumentComponent";
 import { CustomInput } from "../../../components/ui/CustomInput";
 import { CustomSelect } from "../../../components/ui/CustomSelected";
 import { CustomSwitch } from "../../../components/ui/CustomSwitch";
@@ -12,7 +12,7 @@ interface DocumentButtonProps {
 }
 
 const DocumentButton: FC<DocumentButtonProps> = ({ ComponentDoc }) => {
-    const [variant, setVariant] = useState<Variant>("primary");
+    const [variant, setVariant] = useState<VariantButton>("primary");
     const [size, setSize] = useState<"md" | "lg">("lg");
     const [withIcon, setWithIcon] = useState<boolean>(false);
     const [uppercase, setUppercase] = useState<boolean>(false);
@@ -177,7 +177,7 @@ const DocumentButton: FC<DocumentButtonProps> = ({ ComponentDoc }) => {
     <Stack direction="column" spacing={2}>
       <CustomSelect
         value={variant}
-        onChange={(e) => setVariant(e.target.value as Variant)}
+        onChange={(e) => setVariant(e.target.value as VariantButton)}
         options={[
           { value: "primary", label: "Primary" },
           { value: "secondary", label: "Secondary" },

@@ -1,7 +1,7 @@
 import { useState, type ElementType, type FC } from "react";
 import { Stack, Typography, Paper } from "@mui/material";
-import { CustomInput, type Variant } from "../../../components/ui/CustomInput";
-import type { PropItem } from "../../../interfaces/DocumentComponent";
+import { CustomInput } from "../../../components/ui/CustomInput";
+import type { PropItem, Variant } from "../../../interfaces/DocumentComponent";
 import { CustomSelect } from "../../../components/ui/CustomSelected";
 import { CustomSwitch } from "../../../components/ui/CustomSwitch";
 

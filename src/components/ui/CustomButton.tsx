@@ -1,22 +1,12 @@
 import { Button, CircularProgress, useMediaQuery } from "@mui/material";
 import type { FC } from "react";
-import type { CustomButtonProps, VariantStyle } from "../../interfaces/DocumentComponent";
-
-export type Variant =
-  | "primary"
-  | "secondary"
-  | "terciary"
-  | "warning"
-  | "primary-outline"
-  | "secondary-outline"
-  | "terciary-outline"
-  | "warning-outline";
+import type { CustomButtonProps, VariantButton, VariantStyle } from "../../interfaces/DocumentComponent";
 
 export const CustomButton: FC<CustomButtonProps> = ({
   text,
   onClick,
   size,
-  variant = "primary",
+  variant= "primary" as VariantButton,
   icon,
   uppercase = false,
   fullWidth = false,
