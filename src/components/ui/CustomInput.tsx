@@ -5,6 +5,8 @@ import type { ChangeEvent, FC } from "react";
 import type { CustomInputProps, Variant, VariantStyle } from "../../interfaces/DocumentComponent";
 
 export const CustomInput: FC<CustomInputProps> = ({
+  name,
+  inputRef,
   value,
   onChange,
   placeholder,
@@ -50,6 +52,7 @@ export const CustomInput: FC<CustomInputProps> = ({
   const handleTogglePassword = () => setShowPassword(prev => !prev);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!onChange) return;
     if (isNumber) {
       const val = e.target.value;
       if (/^\d*$/.test(val)) {
@@ -65,12 +68,18 @@ export const CustomInput: FC<CustomInputProps> = ({
 
   return (
     <TextField
+      name={name}
+      inputRef={inputRef}
       value={value}
       onChange={handleChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
       placeholder={placeholder}
-      type={isPassword && !showPassword ? 'password' : (isNumber ? 'text' : type)}
+      type={
+        isPassword
+          ? (showPassword ? 'text' : 'password')
+          : (isNumber ? 'text' : type)
+      }
       disabled={disabled}
       fullWidth={fullWidth}
       aria-label={ariaLabel}
@@ -107,7 +116,12 @@ export const CustomInput: FC<CustomInputProps> = ({
         endAdornment: isPassword ? (
           <InputAdornment position="end">
             <IconButton onClick={handleTogglePassword}>
-              {showPassword ? <VisibilityOff sx={{ color: current.color }} /> : <Visibility sx={{ color: current.color }} />}
+              {showPassword ? (
+                <VisibilityOff className="text-gray-600 !text-2xl" />
+              ) : (
+                <Visibility className="text-gray-600 !text-2xl" />
+              )}
+
             </IconButton>
           </InputAdornment>
         ) : null,

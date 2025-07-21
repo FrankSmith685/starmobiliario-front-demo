@@ -7,7 +7,7 @@ import {
 import { CustomInput } from "../../../components/ui/CustomInput";
 import { CustomSwitch } from "../../../components/ui/CustomSwitch";
 import type { Variant, PropItem } from "../../../interfaces/DocumentComponent";
-import { CustomSelect } from "../../../components/ui/CustomSelected";
+import { CustomSelected } from "../../../components/ui/CustomSelected";
 
 interface DocumentProps {
   ComponentDoc: ElementType;
@@ -114,7 +114,7 @@ const DocumentSwitch: FC<DocumentProps> = ({ ComponentDoc }) => {
     >
       <Stack direction="column" spacing={2}>
 
-        <CustomSelect
+        <CustomSelected
           value={variant}
           onChange={(e) => setVariant(e.target.value as Variant)}
           options={[
@@ -127,7 +127,7 @@ const DocumentSwitch: FC<DocumentProps> = ({ ComponentDoc }) => {
            label="Variante"
         />
 
-        <CustomSelect
+        <CustomSelected
           value={size}
           onChange={(e) => setSize(e.target.value as "md" | "lg")}
           options={[
@@ -138,7 +138,7 @@ const DocumentSwitch: FC<DocumentProps> = ({ ComponentDoc }) => {
            label="Tamaño"
         />
 
-        <CustomSelect
+        <CustomSelected
           value={fontFamily}
           onChange={(e) => setFontFamily(e.target.value as string)}
           options={[

@@ -1,5 +1,5 @@
 import type { SelectChangeEvent } from "@mui/material";
-import type { ChangeEvent, ReactNode } from "react";
+import type { ChangeEvent, ForwardedRef, ReactNode } from "react";
 
 // ComponentDoc
 export interface PropDoc { name: string; description: string; type?: string; required?: boolean; values?: string[]; defaultValue?: string; example?: string; notes?: string; }
@@ -48,7 +48,7 @@ export interface VariantStyle {
 // CustomButton
 export interface CustomButtonProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   size?: "md" | "lg";
   variant?: VariantButton;
   icon?: ReactNode;
@@ -66,8 +66,10 @@ export interface CustomButtonProps {
 
 // CustomInput
 export interface CustomInputProps {
-  value: string | number;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  inputRef?: ForwardedRef<HTMLInputElement>;
+  value?: string | number;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: string;
   disabled?: boolean;

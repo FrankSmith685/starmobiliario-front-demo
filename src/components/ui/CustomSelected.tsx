@@ -9,9 +9,13 @@ import {
   FormHelperText,
 } from "@mui/material";
 import type { FC } from "react";
-import type { CustomSelectProps, Variant, VariantStyle } from "../../interfaces/DocumentComponent";
+import type {
+  CustomSelectProps,
+  Variant,
+  VariantStyle,
+} from "../../interfaces/DocumentComponent";
 
-export const CustomSelect: FC<CustomSelectProps> = ({
+export const CustomSelected: FC<CustomSelectProps> = ({
   value,
   onChange,
   options,
@@ -29,10 +33,30 @@ export const CustomSelect: FC<CustomSelectProps> = ({
   const resolvedSize = size ? size : isSmallScreen ? "md" : "lg";
 
   const colors: Record<Variant, VariantStyle> = {
-    primary: { border: "#0A4C3D", focusBorder: "#116b56", background: "#fff", color: "#0A4C3D" },
-    secondary: { border: "#C75C2D", focusBorder: "#D16938", background: "#fff", color: "#C75C2D" },
-    terciary: { border: "#2A3D66", focusBorder: "#344F7F", background: "#fff", color: "#2A3D66" },
-    warning: { border: "#C62828", focusBorder: "#D32F2F", background: "#fff", color: "#C62828" }
+    primary: {
+      border: "#0A4C3D",
+      focusBorder: "#116b56",
+      background: "#fff",
+      color: "#0A4C3D",
+    },
+    secondary: {
+      border: "#C75C2D",
+      focusBorder: "#D16938",
+      background: "#fff",
+      color: "#C75C2D",
+    },
+    terciary: {
+      border: "#2A3D66",
+      focusBorder: "#344F7F",
+      background: "#fff",
+      color: "#2A3D66",
+    },
+    warning: {
+      border: "#C62828",
+      focusBorder: "#D32F2F",
+      background: "#fff",
+      color: "#C62828",
+    },
   };
 
   const neutral: VariantStyle = {
@@ -40,7 +64,7 @@ export const CustomSelect: FC<CustomSelectProps> = ({
     focusBorder: "#999",
     background: "#fff",
     color: "#000",
-    label: "#666"
+    label: "#666",
   };
 
   const [focused, setFocused] = useState(false);
@@ -63,17 +87,18 @@ export const CustomSelect: FC<CustomSelectProps> = ({
           sx={{
             fontSize: internalFontSize,
             color: current.label,
-            '&.Mui-focused': {
-            color: current.focusBorder,
+            "&.Mui-focused": {
+              color: current.focusBorder,
             },
-            '&.MuiInputLabel-shrink': {
-            color: current.label,
+            "&.MuiInputLabel-shrink": {
+              color: current.label,
             },
           }}
         >
           {label}
         </InputLabel>
       )}
+
       <Select
         value={value}
         onChange={onChange}
@@ -85,21 +110,12 @@ export const CustomSelect: FC<CustomSelectProps> = ({
             sx={{
               height: `${height}px !important`,
               padding: 0,
-              '& .MuiSelect-select': {
-                padding: '0 14px',
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%',
-                fontSize: internalFontSize,
-                fontFamily: fontFamily || "Arial",
-                color: current.focusBorder,
-              },
             }}
           />
         }
         renderValue={(selected) =>
           !hasValue ? (
-            <span style={{ color: "#aaa" }}>Seleccione una opción</span>
+            <span style={{ color: "#666" }}>Seleccione una opción</span>
           ) : (
             options.find((opt) => opt.value === selected)?.label
           )
@@ -128,22 +144,26 @@ export const CustomSelect: FC<CustomSelectProps> = ({
           },
         }}
         sx={{
-            height: `${height}px`,
-            fontSize: internalFontSize,
-            '& .MuiSelect-select': {
+          height: `${height}px`,
+          fontSize: internalFontSize,
+          '& .MuiSelect-select': {
             minHeight: `${height}px`,
             lineHeight: `${height}px`,
             fontSize: internalFontSize,
-            },
-
-          '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: hasValue ? current.label : current.border,
-            borderWidth: '1px !important',
+            padding: "0 14px",
+            fontFamily: fontFamily || "Arial",
+            color: current.label,
+            display: "block",
+            textAlign: "left",
           },
-          '&:hover .MuiOutlinedInput-notchedOutline': {
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: hasValue ? current.label : current.border,
+            borderWidth: "1px !important",
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: current.focusBorder,
           },
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: current.focusBorder,
           },
         }}

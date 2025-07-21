@@ -2,7 +2,7 @@ import { useState, type ElementType, type FC } from "react";
 import { Stack, Typography, Paper } from "@mui/material";
 import { CustomInput } from "../../../components/ui/CustomInput";
 import type { PropItem, Variant } from "../../../interfaces/DocumentComponent";
-import { CustomSelect } from "../../../components/ui/CustomSelected";
+import { CustomSelected } from "../../../components/ui/CustomSelected";
 import { CustomSwitch } from "../../../components/ui/CustomSwitch";
 
 interface DocumentInputProps {
@@ -48,7 +48,7 @@ const DocumentInput: FC<DocumentInputProps> = ({ ComponentDoc }) => {
   return (
     <ComponentDoc name="Input Personalizado" description="Un campo de entrada reutilizable con props dinámicos." props={props}>
       <Stack direction="column" spacing={2}>
-        <CustomSelect
+        <CustomSelected
           value={variant}
           onChange={(e) => setVariant(e.target.value as Variant)}
           options={[
@@ -61,7 +61,7 @@ const DocumentInput: FC<DocumentInputProps> = ({ ComponentDoc }) => {
           label="Variante"
         />
         
-        <CustomSelect
+        <CustomSelected
           value={size}
           onChange={(e) => setSize(e.target.value as "md" | "lg")}
           options={[
@@ -72,7 +72,7 @@ const DocumentInput: FC<DocumentInputProps> = ({ ComponentDoc }) => {
           label="Tamaño"
         />
 
-        <CustomSelect
+        <CustomSelected
           value={inputType}
           onChange={(e) => setInputType(e.target.value as string)}
           options={[
@@ -87,7 +87,7 @@ const DocumentInput: FC<DocumentInputProps> = ({ ComponentDoc }) => {
 
         <CustomInput label="Tamaño de Texto" fullWidth value={fontSize} onChange={(e) => setFontSize(e.target.value)} size="lg"/>
 
-        <CustomSelect
+        <CustomSelected
           value={fontFamily}
           onChange={(e) => setFontFamily(e.target.value as string)}
           options={[

@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { CustomButton } from "../../../components/ui/CustomButton";
 import type { PropItem, VariantButton } from "../../../interfaces/DocumentComponent";
 import { CustomInput } from "../../../components/ui/CustomInput";
-import { CustomSelect } from "../../../components/ui/CustomSelected";
+import { CustomSelected } from "../../../components/ui/CustomSelected";
 import { CustomSwitch } from "../../../components/ui/CustomSwitch";
 
 interface DocumentButtonProps {
@@ -175,7 +175,7 @@ const DocumentButton: FC<DocumentButtonProps> = ({ ComponentDoc }) => {
  return (
   <ComponentDoc name="Botón Personalizado" description="Un botón reutilizable con props dinámicos." props={props}>
     <Stack direction="column" spacing={2}>
-      <CustomSelect
+      <CustomSelected
         value={variant}
         onChange={(e) => setVariant(e.target.value as VariantButton)}
         options={[
@@ -192,7 +192,7 @@ const DocumentButton: FC<DocumentButtonProps> = ({ ComponentDoc }) => {
         label="Variante"
       />
 
-      <CustomSelect
+      <CustomSelected
         value={size}
         onChange={(e) => setSize(e.target.value as "md" | "lg")}
         options={[
@@ -203,7 +203,7 @@ const DocumentButton: FC<DocumentButtonProps> = ({ ComponentDoc }) => {
         label="Tamaño"
       />
 
-      <CustomSelect
+      <CustomSelected
         value={buttonType}
         onChange={(e) => setButtonType(e.target.value as 'button' | 'submit' | 'reset')}
         options={[
@@ -217,7 +217,7 @@ const DocumentButton: FC<DocumentButtonProps> = ({ ComponentDoc }) => {
 
       <CustomInput label="Tamaño de Texto" fullWidth value={buttonFontSize} onChange={(e) => setButtonFontSize(e.target.value)} />
 
-      <CustomSelect
+      <CustomSelected
         value={buttonFontFamily}
         onChange={(e) => setButtonFontFamily(e.target.value as string)}
         options={[

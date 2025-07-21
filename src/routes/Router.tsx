@@ -1,136 +1,50 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Routes, Route } from "react-router-dom";
+
+import { Routes, Route, useSearchParams } from "react-router-dom";
 import HomePage from "../pages/home/HomePage";
 import ComponentPage from "../pages/components/ComponentPage";
-// import HeaderNav from "../components/HeaderNav/HeaderNav";
-// import LoginPage from "../pages/auth/LoginPage";
+import { useEffect } from "react";
+import { useUser } from "../hooks/useUser";
+import { useAppState } from "../hooks/useAppState";
+import { useAuth } from "../hooks/useAuth";
+import { useNotification } from "../hooks/useNotificacionHooks/useNotification";
 
 const AppRouter = () => {
-//   const { getUser } = useUser();
-//   const { getCompany } = useCompany();
-//   const {token,departmentsAll,districtsAll,setCurrentPositionService, category, subCategory} = useAppState();
-  
-//   const {getDepartmentsAll, getDistrictsAll} = useUbigeo();
-//   const { permission,location, error } = useLocationUbigeo();
-//   const {getGeocoder} = useGeocoder();
-//   const {getCategory} = useCategory();
-//   const {getSubCategory} = useSubCategories();
-//   const {servicesByUser} = useServices();
-  
-//   useEffect(() => {
-//     getUser();
-//     getCompany();
-//     servicesByUser(false);
-//   }, [token]);
+  const {getUserInfo} = useUser();
+  const {validateResetToken}= useAuth();
+  const {accessToken,setModal,setMode, setModeLogin, setAuthLoginForm,authLoginForm } = useAppState();
+  const [searchParams] = useSearchParams();
+  const {showMessage} = useNotification();
 
-//   useEffect(() => {
-//     const loadDataDepartments = async () => {
-//       await getDepartmentsAll();
-      
-//     };
-//     if(departmentsAll.length == 0){
-//       loadDataDepartments();
-//     }
-//   }, [departmentsAll.length]);
+  // Obtener el perfil del usuari
+    useEffect(() => {
+      if (!accessToken) return;
+      getUserInfo();
+    }, [accessToken]);
 
-//   useEffect(()=>{
-//     const loadDataDistricts = async () => {
-//       await getDistrictsAll();
-//     }
-//     if(districtsAll.length == 0){
-//       loadDataDistricts();
-//     }
-//   },[districtsAll.length]);
+    useEffect(() => {
+      const token = searchParams.get("resetToken");
+      if (!token) return;
 
-//   useEffect(()=>{
-//     const loadDataCategory = async () => {
-//       await getCategory();
-//     }
-//     if(category.length == 0){
-//       loadDataCategory();
-//     }
-//   },[category.length])
+      validateResetToken(token, (isValid, message) => {
+        if (isValid) {
+          setModal(true);
+          setMode('login');
+          setModeLogin('recover_three');
+          setAuthLoginForm({...authLoginForm,token:token})
+        } else {
+          showMessage(message ?? 'Error al obtener token','error');
+        }
+      });
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }, []);
 
-//   useEffect(()=>{
-//     const loadDataSubCategory = async () => {
-//       await getSubCategory();
-//     }
-//     if(subCategory.length == 0){
-//       loadDataSubCategory();
-//     }
-//   },[subCategory.length])
-
-
-//   const lastPermission = useRef<PermissionState | null>(null);
-
-//   useEffect(() => {
-//     if( permission != "granted"){
-//       getGeocoder(-12.0464, -77.0428);
-//     }
-//     if (location && lastPermission.current !== permission) {
-//       lastPermission.current = permission;
-//       if (!error && permission === "granted") {
-//         getGeocoder(location.lat, location.lon);
-//       }
-//     }
-//   }, [permission, location, departmentsAll.length,districtsAll]); 
-
-//   useEffect(() => {
-//   const geoOptions = {
-//     enableHighAccuracy: true,
-//     timeout: 30000,
-//     maximumAge: 0,
-//   };
-
-//   let initialPositionFetched = false;
-
-//   const getInitialPosition = () => {
-//     if (initialPositionFetched) return;
-//     initialPositionFetched = true;
-
-//     navigator.geolocation.getCurrentPosition(
-//       (position) => {
-//         setCurrentPositionService({
-//           latitud: position.coords.latitude,
-//           longitud: position.coords.longitude,
-//         });
-//       },
-//       (error) => {
-//         console.error("Error al obtener ubicación inicial:", error);
-//         if (error.code === 1) console.error("Permiso denegado");
-//         if (error.code === 2) console.error("Posición no disponible");
-//         if (error.code === 3) console.error("Tiempo de espera agotado");
-//       },
-//       geoOptions
-//     );
-//   };
-
-//   getInitialPosition();
-
-//   const watchId = navigator.geolocation.watchPosition(
-//     (position) => {
-//       setCurrentPositionService({
-//         latitud: position.coords.latitude,
-//         longitud: position.coords.longitude,
-//       });
-//     },
-//     (error) => {
-//       console.error("Error en watchPosition:", error);
-//       getInitialPosition();
-//     },
-//     geoOptions
-//   );
-
-//   return () => {
-//     navigator.geolocation.clearWatch(watchId);
-//   };
-// }, []);
 
   return (
     // <Router>
       <Routes>
         {/* Rutas públicas (siempre accesibles) */}
-        
         <Route path="/" element={<HomePage />} />
         <Route path="/components" element={<ComponentPage />} />
         {/* <Route path="/terminos-condiciones-de-uso" element={<TerminosCondiciones />} /> */}

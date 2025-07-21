@@ -4,7 +4,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import { CustomSelect } from "../../../components/ui/CustomSelected";
+import { CustomSelected } from "../../../components/ui/CustomSelected";
 import { CustomInput } from "../../../components/ui/CustomInput";
 import type { PropItem, Variant } from "../../../interfaces/DocumentComponent";
 import { CustomSwitch } from "../../../components/ui/CustomSwitch";
@@ -48,7 +48,7 @@ const DocumentSelect: FC<DocumentSelectProps> = ({ ComponentDoc }) => {
     <ComponentDoc name="Select Personalizado" description="Un campo de selección reutilizable con props dinámicos." props={props}>      
       <Stack direction="column" spacing={2}>
 
-        <CustomSelect
+        <CustomSelected
             value={variant}
             onChange={(e) => setVariant(e.target.value as Variant)}
             options={[
@@ -61,7 +61,7 @@ const DocumentSelect: FC<DocumentSelectProps> = ({ ComponentDoc }) => {
             label="Variante"
         />
     
-        <CustomSelect
+        <CustomSelected
             value={size}
             onChange={(e) => setSize(e.target.value as "md" | "lg")}
             options={[
@@ -72,7 +72,7 @@ const DocumentSelect: FC<DocumentSelectProps> = ({ ComponentDoc }) => {
             label="Tamaño"
         />
 
-        <CustomSelect
+        <CustomSelected
             value={fontFamily}
             onChange={(e) => setFontFamily(e.target.value as string)}
             options={[
@@ -102,7 +102,7 @@ const DocumentSelect: FC<DocumentSelectProps> = ({ ComponentDoc }) => {
 
         <Typography className="mt-4" sx={{ fontSize: { xs: '16px', sm: '16px', lg: '17px' },fontWeight: 500}}>Vista Previa del Componente</Typography>
         <Paper elevation={3} className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
-          <CustomSelect
+          <CustomSelected
             value={value}
             onChange={(e) => setValue(e.target.value as string)}
             options={options}

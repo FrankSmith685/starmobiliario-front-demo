@@ -6,30 +6,31 @@ import {
 import { CustomButton } from "../ui/CustomButton";
 import { quickAccess } from "./data/menuData";
 import { mobileMenuData as menuData } from "./data/menuData.mobile";
+import { useAppState } from "../../hooks/useAppState";
+import { useAuth } from "../../hooks/useAuth";
 
 const MainMenuMobile = () => {
   const [openMainSection, setOpenMainSection] = useState<string | null>(null);
   const [openSubSections, setOpenSubSections] = useState<{ [key: string]: boolean }>({});
   const [openColumnByTab, setOpenColumnByTab] = useState<{ [tabKey: string]: string | null }>({});
   const [openColumnBySection, setOpenColumnBySection] = useState<{ [sectionLabel: string]: string | null }>({});
+  const [showMenuUser, setShowMenuUser] = useState<boolean>(true);
+  const {setMode, setModal, user,setMenuOpen, setModeLogin} = useAppState();
+  const {logout} = useAuth();
 
+  const toggleColumnInTab = (tabKey: string, colTitle: string) => {
+      setOpenColumnByTab((prev) => ({
+          ...prev,
+          [tabKey]: prev[tabKey] === colTitle ? null : colTitle,
+      }));
+  };
 
-    const toggleColumnInTab = (tabKey: string, colTitle: string) => {
-        setOpenColumnByTab((prev) => ({
-            ...prev,
-            [tabKey]: prev[tabKey] === colTitle ? null : colTitle,
-        }));
-    };
-
-    const toggleColumnInSection = (sectionLabel: string, colTitle: string) => {
+  const toggleColumnInSection = (sectionLabel: string, colTitle: string) => {
     setOpenColumnBySection((prev) => ({
         ...prev,
         [sectionLabel]: prev[sectionLabel] === colTitle ? null : colTitle,
     }));
-    };
-
-
-
+  };
 
   const toggleMainSection = (label: string) => {
     setOpenMainSection((prev) => (prev === label ? null : label));
@@ -43,49 +44,98 @@ const MainMenuMobile = () => {
   };
 
   const handleClickIngresar = (): void => {
-    console.log("ingresar");
+    setModal(true);
+    setMode("login");
+    setModeLogin('login_one');
   };
 
   const handleClickPublicar = (): void => {
     console.log("publicar");
   };
 
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(" ");
+    if (parts.length === 1) return parts[0][0].toUpperCase();
+    return parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
+  };
+
+  const handleClickShowMenu=()=>{
+    setShowMenuUser(!showMenuUser);
+  }
+
+  const quickAccessToShow = user
+  ? quickAccess
+  : quickAccess.filter(item => item.label !== "Ayudar" && item.label !== "Cerrar sesión");
+
+  const onLogout=()=>{
+    logout();
+    setModal(false);
+    setMode('login');
+    setMenuOpen(false);
+  }
+
+
   return (
-    <div className="w-full px-4 py-4 space-y-4">
+    <div className={`${showMenuUser ? 'space-y-2' : user ? 'space-y-2' :'space-y-4'} w-full px-4 py-4 `}>
       {/* Header login */}
-      <div className="space-y-4 pb-4 border-b-[1px] border-b-gray-200">
+      <div className={`${showMenuUser?'pb-4 space-y-4':'pb-2 space-y-2'} border-b-[1px]  border-b-gray-200  `}>
         <p className="text-sm text-gray-700">
           Ingresa y accede a los avisos que contactaste, tus favoritos y las búsquedas guardadas
         </p>
-        <CustomButton
-          type="button"
-          variant="primary"
-          size="md"
-          fontSize="14px"
-          fontWeight={400}
-          fullWidth={true}
-          text="Ingresar"
-          onClick={handleClickIngresar}
-        />
+        {user ? (
+          <div className="w-full flex items-center justify-between hover:cursor-pointer">
+            <div className="flex items-center justify-start gap-4 w-full">
+              <div className="flex items-center gap-1 cursor-pointer h-full">
+                <div className="bg-emerald-900 text-white text-sm w-9 h-9 rounded-full flex items-center justify-center">
+                  {getInitials(user?.nombre || user?.correo || "U")}
+                </div>
+                
+              </div>
+              <div className="w-full gap-0 flex flex-col" onClick={handleClickShowMenu}>
+                <p className="text-gray-800 font-semibold">{user?.nombre}</p>
+                <p className={`${user?.nombre != null ? 'text-gray-800 text-base' : 'font-semibold text-gray-700 text-base'}`}>{user?.correo}</p>
+              </div>
+            </div>
+            {showMenuUser ? <FaChevronUp className="text-gray-800"/> : <FaChevronDown className="text-gray-800"/>}
+          </div>
+        ): (
+          <CustomButton
+            type="button"
+            variant="primary"
+            size="md"
+            fontSize="14px"
+            fontWeight={400}
+            fullWidth={true}
+            text="Ingresar"
+            onClick={handleClickIngresar}
+          />
+        )}
       </div>
-
-      {/* User quick links */}
-      <div className="bg-white rounded-md pb-4 border-b-[1px] border-b-gray-200">
-        <ul className="divide-y divide-gray-200 text-sm text-gray-800">
-          {quickAccess.map((item, index) => (
-            <li
-              key={index}
-              className="p-3 flex items-center gap-2 transition-colors cursor-pointer hover:bg-primary "
-            >
-              {item.icon && <item.icon />}
-              {item.label}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div
+          className={`
+            bg-white rounded-md border-b-[1px] border-b-gray-200
+            overflow-hidden transition-all duration-300
+            ${showMenuUser ? 'max-h-[500px] opacity-100 py-0' : user ? 'max-h-0 opacity-0 py-0': 'max-h-[500px] opacity-100 py-0'}
+          `}
+        >
+          <ul className="divide-y divide-gray-200 text-sm text-gray-800">
+            {quickAccessToShow.map((item, index) => (
+              <li
+                key={index}
+                className={`p-3 flex items-center gap-2 transition-colors cursor-pointer 
+                  ${item.label === "Cerrar sesión" ? "text-red-800 hover:bg-red-100" : "hover:bg-primary"}
+                `}
+                onClick={item.isLogout ? onLogout : undefined}
+              >
+                {item.icon && <item.icon className={`${item.label === "Cerrar sesión" ? "text-red-700 hover:bg-red-100" : "hover:bg-primary"}`}/>}
+                {item.label}
+              </li>
+            ))}
+          </ul>
+        </div>
 
       {/* Botón publicar */}
-      <div className="pb-4 border-b-[1px] border-b-gray-200">
+      <div className={`${showMenuUser ? 'pt-2' : 'pt-0'} pb-4 border-b-[1px] border-b-gray-200`}>
         <CustomButton
           type="button"
           variant="primary-outline"

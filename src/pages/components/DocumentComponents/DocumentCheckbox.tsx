@@ -7,7 +7,7 @@ import {
 import { CustomInput } from "../../../components/ui/CustomInput";
 import type { PropItem, Variant } from "../../../interfaces/DocumentComponent";
 import { CustomCheckbox } from "../../../components/ui/CustomCheckbox";
-import { CustomSelect } from "../../../components/ui/CustomSelected";
+import { CustomSelected } from "../../../components/ui/CustomSelected";
 
 interface DocumentProps {
   ComponentDoc: ElementType;
@@ -40,7 +40,7 @@ const props: PropItem[] = [
       props={props}
     >
       <Stack direction="column" spacing={2}>
-        <CustomSelect
+        <CustomSelected
           value={variant}
           onChange={(e) => setVariant(e.target.value as Variant)}
           options={[
@@ -53,7 +53,7 @@ const props: PropItem[] = [
           label="Variante"
         />
 
-        <CustomSelect
+        <CustomSelected
           value={size}
           onChange={(e) => setSize(e.target.value as "md" | "lg")}
           options={[
@@ -64,7 +64,7 @@ const props: PropItem[] = [
           label="Tamaño"
         />
 
-        <CustomSelect
+        <CustomSelected
           value={fontFamily}
           onChange={(e) => setFontFamily(e.target.value as string)}
           options={[

@@ -3,6 +3,7 @@ import type { IconType } from "react-icons";
 export interface QuickAccessItem {
   label: string;
   icon?: IconType;
+  isLogout?: boolean;
 }
 
 export interface MenuColumn {

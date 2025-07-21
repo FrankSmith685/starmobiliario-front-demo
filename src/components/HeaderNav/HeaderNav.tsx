@@ -1,13 +1,14 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import CustomLogo from "../ui/CustomLogo";
 import MainMenu from "./MainMenu";
 import UserActions from "./UserActions";
 import { FaBars, FaTimes } from "react-icons/fa";
 import MainMenuMobile from "./MainMenuMobile";
+import { useAppState } from "../../hooks/useAppState";
 
 const HeaderNav = () => {
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const {menuOpen,setMenuOpen} = useAppState();
 
   return (
     <header className="w-full px-4 shadow-sm bg-white flex justify-between items-center relative h-[80px]">

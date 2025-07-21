@@ -5,18 +5,20 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { AppProvider } from './context/appProvider.tsx';
 import HeaderNav from './components/HeaderNav/HeaderNav.tsx';
 import { BrowserRouter } from 'react-router-dom';
+import AuthModal from './components/auth/AuthModal.tsx';
+import { CustomNotificaciones } from './components/ui/CustomNotification.tsx';
 
 const theme = createTheme();
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <AppProvider>
-    {/* <BrowserRouter> */}
       <ThemeProvider theme={theme}>
         <HeaderNav />
         <AppRouter />
+        <AuthModal/>
+        <CustomNotificaciones />
       </ThemeProvider>
-    {/* </BrowserRouter> */}
   </AppProvider>
   </BrowserRouter>
 );

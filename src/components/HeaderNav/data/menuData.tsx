@@ -1,19 +1,25 @@
 import {
-  FaRegCommentDots,
   FaHeart,
   FaBell,
   FaEye,
+  FaUserFriends,
+  FaUser,
+  FaCog,
+  FaSignOutAlt,
+  FaQuestionCircle,
 } from "react-icons/fa";
 import type { MenuItem, QuickAccessItem } from "../../../interfaces/menuHeaderInterface";
 
 
 export const quickAccess: QuickAccessItem[] = [
-  { label: "Mis contactos", icon: FaRegCommentDots },
+  { label: "Mis contactos", icon: FaUserFriends },
   { label: "Favoritos", icon: FaHeart },
   { label: "Búsquedas y alertas", icon: FaBell },
   { label: "Historial", icon: FaEye },
-  { label: "Mi cuenta" },
-  { label: "Ajustes de notificaciones" },
+  { label: "Mi cuenta", icon: FaUser },
+  { label: "Ajustes de notificaciones",icon: FaCog },
+  { label: "Ayudar",icon: FaQuestionCircle},
+  { label: "Cerrar sesión",icon: FaSignOutAlt,isLogout: true, },
 ];
 
 
