@@ -11,7 +11,7 @@ const HeaderNav = () => {
   const {menuOpen,setMenuOpen} = useAppState();
 
   return (
-    <header className="w-full px-4 shadow-sm bg-white flex justify-between items-center relative h-[80px]">
+    <header className="w-full fixed top-0 left-0 z-50 px-4 shadow-sm bg-white flex justify-between items-center h-[80px]">
       {/* Logo */}
       <div className="flex items-center gap-4">
         <CustomLogo isActive={true} />
@@ -36,7 +36,8 @@ const HeaderNav = () => {
       {/* Menú móvil desplegable con animación */}
       <div
         ref={menuRef}
-        className={`absolute top-full left-0 w-full border-t-gray-200 border-t-[1px] bg-white shadow-sm lg:hidden z-50 transform transition-all duration-300 origin-top overflow-hidden ${
+        style={{ height: 'calc(100vh - 80px)' }}
+        className={`absolute top-full left-0 w-full border-t-gray-200 border-t-[1px] bg-white shadow-sm lg:hidden z-50 transform transition-all duration-300 origin-top overflow-y-auto ${
           menuOpen ? "scale-y-100 opacity-100 max-h-[1000px]" : "scale-y-0 opacity-0 max-h-0"
         }`}
       >

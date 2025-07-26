@@ -16,7 +16,7 @@ const schema = z.object({
   correo: z
     .string()
     .nonempty("El correo electrónico es obligatorio")
-    .email("Correo inválido, revisa el formato"),
+    .email("Ingresa un correo electrónico válido"),
 });
 
 type LoginFormData = z.infer<typeof schema>;

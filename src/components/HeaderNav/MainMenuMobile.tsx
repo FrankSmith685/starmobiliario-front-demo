@@ -8,6 +8,7 @@ import { quickAccess } from "./data/menuData";
 import { mobileMenuData as menuData } from "./data/menuData.mobile";
 import { useAppState } from "../../hooks/useAppState";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const MainMenuMobile = () => {
   const [openMainSection, setOpenMainSection] = useState<string | null>(null);
@@ -17,6 +18,7 @@ const MainMenuMobile = () => {
   const [showMenuUser, setShowMenuUser] = useState<boolean>(true);
   const {setMode, setModal, user,setMenuOpen, setModeLogin} = useAppState();
   const {logout} = useAuth();
+  const navigate = useNavigate();
 
   const toggleColumnInTab = (tabKey: string, colTitle: string) => {
       setOpenColumnByTab((prev) => ({
@@ -64,8 +66,14 @@ const MainMenuMobile = () => {
   }
 
   const quickAccessToShow = user
-  ? quickAccess
-  : quickAccess.filter(item => item.label !== "Ayudar" && item.label !== "Cerrar sesión");
+  ? quickAccess.filter(item => item.isActive !== false)
+  : quickAccess.filter(
+      item =>
+        item.isActive !== false &&
+        item.label !== "Ayudar" &&
+        item.label !== "Cerrar sesión"
+    );
+
 
   const onLogout=()=>{
     logout();
@@ -74,9 +82,13 @@ const MainMenuMobile = () => {
     setMenuOpen(false);
   }
 
+  const handleClickNavigateUserActions = (path: string) => {
+    navigate(path);
+    setMenuOpen(false);
+  };
 
   return (
-    <div className={`${showMenuUser ? 'space-y-2' : user ? 'space-y-2' :'space-y-4'} w-full px-4 py-4 `}>
+    <div className={`${showMenuUser ? 'space-y-2' : user ? 'space-y-2' :'space-y-4'} w-full px-4 py-4 h-full`}>
       {/* Header login */}
       <div className={`${showMenuUser?'pb-4 space-y-4':'pb-2 space-y-2'} border-b-[1px]  border-b-gray-200  `}>
         <p className="text-sm text-gray-700">
@@ -96,7 +108,7 @@ const MainMenuMobile = () => {
                 <p className={`${user?.nombre != null ? 'text-gray-800 text-base' : 'font-semibold text-gray-700 text-base'}`}>{user?.correo}</p>
               </div>
             </div>
-            {showMenuUser ? <FaChevronUp className="text-gray-800"/> : <FaChevronDown className="text-gray-800"/>}
+            {showMenuUser ? <FaChevronUp className="text-gray-800 hover:cursor-pointer" onClick={handleClickShowMenu}/> : <FaChevronDown className="text-gray-800 hover:cursor-pointer" onClick={handleClickShowMenu}/>}
           </div>
         ): (
           <CustomButton
@@ -120,12 +132,12 @@ const MainMenuMobile = () => {
         >
           <ul className="divide-y divide-gray-200 text-sm text-gray-800">
             {quickAccessToShow.map((item, index) => (
-              <li
+              <li     
                 key={index}
                 className={`p-3 flex items-center gap-2 transition-colors cursor-pointer 
                   ${item.label === "Cerrar sesión" ? "text-red-800 hover:bg-red-100" : "hover:bg-primary"}
                 `}
-                onClick={item.isLogout ? onLogout : undefined}
+                onClick={item.isLogout ? onLogout : ()=>handleClickNavigateUserActions(item.path || "")}
               >
                 {item.icon && <item.icon className={`${item.label === "Cerrar sesión" ? "text-red-700 hover:bg-red-100" : "hover:bg-primary"}`}/>}
                 {item.label}

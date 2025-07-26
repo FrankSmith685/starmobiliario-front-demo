@@ -139,7 +139,6 @@ export const useAuth = () => {
         }
     };
 
-
     return {
         verifyEmail,
         registerUser,

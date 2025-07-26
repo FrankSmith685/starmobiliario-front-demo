@@ -39,8 +39,9 @@ export const appReducer = (state: AppState, action: ActionTypes): AppState => {
       accessToken: null,
       refreshToken: null,
       user: null,
-      modal: true, // mostrar el modal
+      modal: true,
       modeLogin: "login_one",
+      mode: 'login',
       authLoginForm: {
         correo: '',
         contraseña: '',

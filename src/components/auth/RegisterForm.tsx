@@ -22,17 +22,33 @@ const schema = z
     email: z
       .string()
       .nonempty("El correo electrónico es obligatorio")
-      .email("Correo inválido, revisa el formato"),
+    .email("Ingresa un correo electrónico válido"),
     password: z
       .string()
       .nonempty("La contraseña es obligatoria")
       .min(6, "La contraseña debe tener al menos 6 caracteres"),
-    name: z.string().nonempty("El nombre es obligatorio"),
-    lastname: z.string().optional(),
-    razonSocial: z.string().optional(),
+    name: z.string()
+    .nonempty("El nombre es obligatorio")
+    .regex(/^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+$/, "El nombre solo puede contener letras"),
+    lastname: z.string()
+    .optional()
+    .refine(
+      (val) => !val || /^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+$/.test(val),
+      "El apellido solo puede contener letras"
+    ),
+    razonSocial: z.string()
+    .max(100, "La razón social no debe exceder los 100 caracteres").optional(),
     documentType: z.string().nonempty("El tipo de documento es obligatorio"),
-    document: z.string().nonempty("El número de documento es obligatorio"),
-    telephone: z.string().nonempty("El número de teléfono es obligatorio"),
+    document: z.string()
+    .nonempty("El número de documento es obligatorio")
+    .regex(/^\d+$/, "El documento debe contener solo números")
+    .min(6, "El documento debe tener al menos 6 dígitos")
+    .max(15, "El documento no puede tener más de 15 dígitos"),
+    telephone: z.string()
+    .nonempty("El número de celular es obligatorio")
+    .regex(/^\d+$/, "El celular solo puede contener números")
+    .min(6, "El celular es demasiado corto")
+    .max(15, "El celular es demasiado largo"),
   })
   .superRefine((data, ctx) => {
     const isRUC = data.documentType === "2";

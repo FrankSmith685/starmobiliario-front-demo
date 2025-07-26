@@ -4,6 +4,8 @@ export interface QuickAccessItem {
   label: string;
   icon?: IconType;
   isLogout?: boolean;
+  isActive?: boolean;
+  path?: string;
 }
 
 export interface MenuColumn {

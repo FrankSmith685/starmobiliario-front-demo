@@ -3,11 +3,13 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useAppState } from "../../hooks/useAppState";
 import { userMenuItemsData, type SectionType } from "./data/userMenuItemData";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const UserAvatarMenu = () => {
   const { user } = useAppState();
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const {logout} = useAuth();
+  const navigate = useNavigate();
 
   const getInitials = (name: string) => {
     const parts = name.trim().split(" ");
@@ -27,11 +29,19 @@ export const UserAvatarMenu = () => {
     };
 
     userMenuItemsData.forEach((item) => {
+      if (item?.isActive === false) return; 
       const Icon = item.icon;
+      const handleClick = () => {
+        if (item.isLogout) {
+          onLogout();
+        } else if (item.path) {
+          navigate(item.path);
+        }
+      };
       const element = (
         <li
           key={item.label}
-          onClick={item.isLogout ? onLogout : undefined}
+          onClick={handleClick}
           className={`flex items-center gap-2 px-2 py-1 hover:bg-gray-100 rounded cursor-pointer ${
             item.isLogout ? "text-red-800" : ""
           }`}

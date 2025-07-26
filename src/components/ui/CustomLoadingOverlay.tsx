@@ -8,7 +8,7 @@ interface LoadingOverlayProps {
 const CustomLoadingOverlay: FC<LoadingOverlayProps> = ({ fullScreen = false }) => {
   return (
     <div
-      className={`z-50 flex items-center justify-center bg-white bg-opacity-70 ${
+      className={`z-[49] h-full flex items-center justify-center bg-white bg-opacity-70 ${
         fullScreen
           ? "fixed top-0 left-0 w-full h-full"
           : "absolute inset-0"

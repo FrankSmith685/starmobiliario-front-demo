@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { Routes, Route, useSearchParams } from "react-router-dom";
+import { Routes, Route, useSearchParams, Navigate } from "react-router-dom";
 import HomePage from "../pages/home/HomePage";
 import ComponentPage from "../pages/components/ComponentPage";
 import { useEffect } from "react";
@@ -8,6 +8,8 @@ import { useUser } from "../hooks/useUser";
 import { useAppState } from "../hooks/useAppState";
 import { useAuth } from "../hooks/useAuth";
 import { useNotification } from "../hooks/useNotificacionHooks/useNotification";
+import ProtectedRoute from "./ProtectedRoute";
+import PanelPage from "../pages/panel/PanelPage";
 
 const AppRouter = () => {
   const {getUserInfo} = useUser();
@@ -43,7 +45,8 @@ const AppRouter = () => {
 
   return (
     // <Router>
-      <Routes>
+    <div className="pt-[80px]">
+        <Routes>
         {/* Rutas públicas (siempre accesibles) */}
         <Route path="/" element={<HomePage />} />
         <Route path="/components" element={<ComponentPage />} />
@@ -59,10 +62,11 @@ const AppRouter = () => {
         {/* </Route> */}
 
         {/* Rutas protegidas (solo para autenticados) */}
-        {/* <Route element={<ProtectedRoute />}>
-          <Route path="/panel" element={<PanelPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/panel" element={<Navigate to="/panel/avisos" replace />} />
           <Route path="/panel/:option" element={<PanelPage />} />
-        </Route> */}
+          <Route path="/panel/:option/:suboption" element={<PanelPage />} />
+        </Route>
 
         {/* Ruta de Admin */}
         {/* <Route element={<AdminRoute />}>
@@ -77,6 +81,8 @@ const AppRouter = () => {
         {/* Página 404 para rutas inexistentes */}
         {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
+    </div>
+      
     // </Router>
   );
 };

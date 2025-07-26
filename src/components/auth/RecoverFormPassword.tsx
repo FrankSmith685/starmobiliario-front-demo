@@ -8,7 +8,6 @@ import type { FC } from "react";
 import { useAppState } from "../../hooks/useAppState";
 import { useAuth } from "../../hooks/useAuth";
 
-// ✅ Validación con Zod
 const schema = z
   .object({
     contraseña: z
