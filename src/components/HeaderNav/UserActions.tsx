@@ -89,7 +89,6 @@ const UserActions = ({ menuOpen }: UserActionsProps) => {
       ) : (
         <div className='hidden lg:flex'>
           <UserAvatarMenu/>
-
         </div>
       )}
     </div>

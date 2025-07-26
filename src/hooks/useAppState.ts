@@ -39,6 +39,5 @@ export const useAppState = () => {
     setUser: (user: UsuarioData | null) => dispatch(setUser(user)),
     setLoadingUser: (loadingUser: boolean) => dispatch(setLoadingUser(loadingUser)),
     setMenuOpen: (menuOpen: boolean) => dispatch(setMenuOpen(menuOpen)),
-
   };
 };

@@ -1,8 +1,10 @@
+import CustomSearchPanel from "../../components/ui/CustomSearchPanel"
+
 const HomePage=()=>{
     return(
-        <div>
-            HOLA A TODOS
-        </div>
+        <section>
+            <CustomSearchPanel />
+        </section>
     )
 }
 
