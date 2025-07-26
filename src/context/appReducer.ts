@@ -1,5 +1,5 @@
 import type { AppState } from "../interfaces/appStateInterface";
-import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_LOADING_USER, SET_LOGOUT, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_USER, type ActionTypes } from "../types/actionTypes";
+import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_LOADING_USER, SET_LOGOUT, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_PROGRESS_PROPERTY, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_USER, type ActionTypes } from "../types/actionTypes";
 
 export const appReducer = (state: AppState, action: ActionTypes): AppState => {
   switch (action.type) {
@@ -63,6 +63,8 @@ export const appReducer = (state: AppState, action: ActionTypes): AppState => {
       return { ...state, loadingUser: action.payload };
     case SET_MENU_OPEN:
       return { ...state, menuOpen: action.payload };
+    case SET_PROGRESS_PROPERTY:
+      return { ...state, progressProperty: action.payload };
     default:
       return state;
   }

@@ -8,7 +8,7 @@ import { quickAccess } from "./data/menuData";
 import { mobileMenuData as menuData } from "./data/menuData.mobile";
 import { useAppState } from "../../hooks/useAppState";
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MainMenuMobile = () => {
   const [openMainSection, setOpenMainSection] = useState<string | null>(null);
@@ -19,6 +19,8 @@ const MainMenuMobile = () => {
   const {setMode, setModal, user,setMenuOpen, setModeLogin} = useAppState();
   const {logout} = useAuth();
   const navigate = useNavigate();
+   const location = useLocation();
+  const isPanelPublicadorRoute = location.pathname.startsWith("/panel/publicador");
 
   const toggleColumnInTab = (tabKey: string, colTitle: string) => {
       setOpenColumnByTab((prev) => ({
@@ -52,7 +54,8 @@ const MainMenuMobile = () => {
   };
 
   const handleClickPublicar = (): void => {
-    console.log("publicar");
+    navigate("/panel/publicador");
+    setMenuOpen(false);
   };
 
   const getInitials = (name: string) => {
@@ -147,18 +150,22 @@ const MainMenuMobile = () => {
         </div>
 
       {/* Botón publicar */}
-      <div className={`${showMenuUser ? 'pt-2' : 'pt-0'} pb-4 border-b-[1px] border-b-gray-200`}>
-        <CustomButton
-          type="button"
-          variant="primary-outline"
-          size="md"
-          fontSize="14px"
-          fontWeight={400}
-          fullWidth={true}
-          text="Publicar"
-          onClick={handleClickPublicar}
-        />
-      </div>
+      {
+        !isPanelPublicadorRoute && (
+          <div className={`${showMenuUser ? 'pt-2' : 'pt-0'} pb-4 border-b-[1px] border-b-gray-200`}>
+            <CustomButton
+              type="button"
+              variant="primary-outline"
+              size="md"
+              fontSize="14px"
+              fontWeight={400}
+              fullWidth={true}
+              text="Publicar"
+              onClick={handleClickPublicar}
+            />
+          </div>
+        )
+      }
 
       {/* Menú dinámico principal */}
       <div>

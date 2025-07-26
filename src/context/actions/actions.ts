@@ -1,7 +1,8 @@
 import type { ModeLoginType } from "../../interfaces/appStateInterface";
 import type { AuthLoginForm, AuthRegisterForm } from "../../interfaces/auth";
+import type { ProgressProperty } from "../../interfaces/inmueble";
 import type { UsuarioData } from "../../interfaces/user";
-import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_LOADING_USER, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_USER } from "../../types/actionTypes";
+import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_LOADING_USER, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_PROGRESS_PROPERTY, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_USER } from "../../types/actionTypes";
 
 export const setRegisterUser = (registerUser: string | null) => ({
   type: SET_REGISTERUSER,
@@ -58,6 +59,11 @@ export const setLoadingUser = (loadingUser: boolean) => ({
 export const setMenuOpen = (menuOpen: boolean) => ({
   type: SET_MENU_OPEN,
   payload: menuOpen,
+});
+
+export const setProgressProperty = (progressProperty: ProgressProperty) => ({
+  type: SET_PROGRESS_PROPERTY,
+  payload: progressProperty,
 });
 
 

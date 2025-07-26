@@ -53,8 +53,8 @@ export const useUser = () => {
             const { success, message, data: updatedUser } = response.data;
 
             if (success && updatedUser) {
-            setUser(updatedUser);
-            callback?.(updatedUser, message);
+                setUser(updatedUser);
+                callback?.(updatedUser, message);
             } else {
             console.warn("Error al actualizar:", message);
             }

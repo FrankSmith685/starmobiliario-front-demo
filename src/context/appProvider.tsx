@@ -39,6 +39,11 @@ const initialState: AppState = {
   user: null,
   loadingUser: false,
   menuOpen:false,
+  progressProperty: {
+    step: 1,
+    totalSteps: 4,
+    currentPath: "/panel/publicador/principales",
+  },
 };
 
 

@@ -22,6 +22,7 @@ export interface UsuarioData {
     nro_documento: string;
     tipo_documento: string;
   };
+  tipo_registro?: TipoRegistro;
 }
 
 export interface UsuarioResponse {
@@ -29,6 +30,7 @@ export interface UsuarioResponse {
   message: string,
   data:UsuarioData
 }
+export type TipoRegistro = 'Completo' | 'Parcial' | 'Google' | 'Facebook';
 
 export interface UpdateUsuarioCompleto {
   cod_usuario?: string;
@@ -42,6 +44,7 @@ export interface UpdateUsuarioCompleto {
     cod_tipo_documento?: number;
     nro_documento?: string;
   };
+  tipo_registro?:TipoRegistro;
 }
 
 export type ChangePasswordRequest = {

@@ -154,7 +154,7 @@ useEffect(() => {
 
 
    const documentTypeOptions = tiposDocumento.map((tipo) => ({
-    value: tipo.cod_tipo_documento.toString(),
+    value: tipo.cod_tipo_documento?.toString(),
     label: tipo.nombre,
   }));
 

@@ -66,6 +66,7 @@ const AppRouter = () => {
           <Route path="/panel" element={<Navigate to="/panel/avisos" replace />} />
           <Route path="/panel/:option" element={<PanelPage />} />
           <Route path="/panel/:option/:suboption" element={<PanelPage />} />
+          <Route path="/panel/:option/:suboption/:subsuboption" element={<PanelPage />} />
         </Route>
 
         {/* Ruta de Admin */}

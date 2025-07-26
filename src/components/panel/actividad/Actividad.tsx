@@ -1,12 +1,18 @@
-import { useParams, NavLink, Navigate } from "react-router-dom";
-import Contactos from "./contactos/Contactos";
-import Favoritos from "./favoritos/Favoritos";
+import { useParams, Navigate } from "react-router-dom";
+import { menuActividadData } from "./data/menuActividadData";
+import Contactos from "./submenu/contactos/Contactos";
+import Favoritos from "./submenu/favoritos/Favoritos";
+import Historial from "./submenu/historial/Historial";
+import Descartados from "./submenu/descartados/Descartados";
+import BusquedasAlertas from "./submenu/busquedasAlertas/BusquedasAlertas";
+import { CustomSidebarMenu } from "../../ui/CustomSidebarMenuUser";
 
 const Actividad = () => {
   const { suboption } = useParams<{ suboption?: string }>();
 
-  // Redirige automáticamente a /panel/cuenta/datos si no hay suboption
-  if (!suboption) {
+  const validOptions = ["contactos", "favoritos", "historial", "descartados","busquedas-alertas"];
+
+  if (!suboption || !validOptions.includes(suboption)) {
     return <Navigate to="/panel/actividad/contactos" replace />;
   }
 
@@ -16,42 +22,26 @@ const Actividad = () => {
         return <Contactos />;
       case "favoritos":
         return <Favoritos />;
-      default:
-        return <div>Selecciona una opción de actividad</div>;
+      case "historial":
+        return <Historial />;
+      case "descartados":
+        return <Descartados />;
+      case "busquedas-alertas":
+        return <BusquedasAlertas />;
     }
   };
 
   return (
-    <div className="flex gap-8">
-      {/* Menú lateral */}
-      <div className="w-1/4 border-r pr-4">
-        <h2 className="text-lg font-semibold mb-4">Mi Actividad</h2>
-        <ul className="space-y-2">
-          <li>
-            <NavLink
-              to="/panel/cuenta/datos"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600 font-semibold" : "text-gray-700"
-              }
-            >
-              Datos de cuenta
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/panel/cuenta/password"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600 font-semibold" : "text-gray-700"
-              }
-            >
-              Cambiar contraseña
-            </NavLink>
-          </li>
-        </ul>
-      </div>
+    <div className="flex gap-6 flex-wrap md:flex-nowrap px-0">
 
-      {/* Contenido dinámico */}
-      <div className="flex-1">{renderSubComponent()}</div>
+      <CustomSidebarMenu
+        title="Mi Actividad"
+        menuData={menuActividadData}
+      />
+
+      <main className="flex-1 bg-white px-6">
+        {renderSubComponent()}
+      </main>
     </div>
   );
 };

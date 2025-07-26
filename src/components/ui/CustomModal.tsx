@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, IconButton, Slide } from '@mui/material'
+import { Dialog, IconButton, Slide, useMediaQuery, useTheme } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { type TransitionProps } from '@mui/material/transitions'
 import clsx from 'clsx'
@@ -11,28 +11,54 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-type FullScreenModalProps = {
+type CustomModalProps = {
   isOpen: boolean
   onClose: () => void
   children?: React.ReactNode
   variant?: 'default' | 'auth'
   mainClassName?: string
   containerClassName?: string
+  width?: string
+  height?: string
+  closable?: boolean
 }
 
-const CustomModal: React.FC<FullScreenModalProps> = ({
+const CustomModal: React.FC<CustomModalProps> = ({
   isOpen,
   onClose,
   children,
   variant = 'default',
   mainClassName = '',
   containerClassName = '',
+  width,
+  height,
+  closable = true,
 }) => {
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const shouldUseFullScreen = (!width && !height) || isSmallScreen
+
+
+  const handleClose = (_event: object, reason: string) => {
+    if (closable || reason !== 'backdropClick') {
+      onClose()
+    }
+  }
+
   return (
     <Dialog
-      fullScreen
       open={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
+      fullScreen={shouldUseFullScreen}
+      maxWidth={false}
+      PaperProps={{
+        style: {
+          width: shouldUseFullScreen ? '100%' : width || '100%',
+          height: shouldUseFullScreen ? '100%' : height || '100%',
+          maxWidth: shouldUseFullScreen ? '100%' : width || '100%',
+          maxHeight: shouldUseFullScreen ? '100%' : height || '100%',
+        },
+      }}
       slots={{
         transition: Transition,
       }}
@@ -53,7 +79,7 @@ const CustomModal: React.FC<FullScreenModalProps> = ({
       {variant === 'auth' ? (
         <main
           className={clsx(
-            'grid grid-cols-1 md:grid-cols-2 h-screen overflow-auto',
+            'grid grid-cols-1 md:grid-cols-2 h-full overflow-auto',
             mainClassName
           )}
         >
@@ -62,13 +88,13 @@ const CustomModal: React.FC<FullScreenModalProps> = ({
       ) : (
         <main
           className={clsx(
-            'flex justify-center items-start overflow-auto min-h-screen py-8',
+            'flex justify-center items-start overflow-auto h-full py-8',
             mainClassName
           )}
         >
           <div
             className={clsx(
-              'max-w-[400px] w-full flex flex-col gap-5 p-6',
+              'w-full flex flex-col gap-5 p-6',
               containerClassName
             )}
           >

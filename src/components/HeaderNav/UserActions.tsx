@@ -5,10 +5,15 @@ import type { UserActionsProps } from '../../interfaces/menuHeaderInterface';
 import { useAppState } from '../../hooks/useAppState';
 import { UserAvatarMenu } from './UserAvatarMenu';
 import { useNotification } from '../../hooks/useNotificacionHooks/useNotification';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const UserActions = ({ menuOpen }: UserActionsProps) => {
   const { showMessage } = useNotification();
   const { setMode, setModal, user, loadingUser, setModeLogin } = useAppState();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isPanelRoute = location.pathname.startsWith("/panel");
+  const isPanelPublicadorRoute = location.pathname.startsWith("/panel/publicador");
 
   const handleClickIngresar = (): void => {
     setModal(true);
@@ -17,8 +22,9 @@ const UserActions = ({ menuOpen }: UserActionsProps) => {
   };
 
   const handleClickPublicar = (): void => {
-    console.log('Publicar clickeado');
+    navigate("/panel/publicador");
   };
+  
 
   return (
     <div className='items-center gap-4 lg:gap-2 text-sm flex flex-row'>
@@ -35,33 +41,42 @@ const UserActions = ({ menuOpen }: UserActionsProps) => {
       </Tooltip>
 
       {/* Contactos */}
-      <div
-        className={`group hidden lg:flex items-center gap-1 p-3 rounded-md cursor-pointer transition-all hover:bg-primary hover:shadow-sm hover:scale-[1.02]`}
-      >
-        <FaRegCommentDots className='text-gray-700 text-lg transition-colors' />
-        <span className='text-gray-700 transition-colors text-sm'>
-          Mis contactos
-        </span>
-      </div>
-
-      <Tooltip title='Mis contactos' arrow className={`${menuOpen ? 'hidden' : ''}`}>
-        <div className='group lg:hidden rounded-full transition-all cursor-pointer hover:bg-primary hover:shadow-sm hover:scale-105'>
-          <FaRegCommentDots className='text-gray-700 text-xl lg:text-lg transition-colors' />
-        </div>
-      </Tooltip>
+      {
+        !isPanelRoute && (
+          <>
+            <div
+              className={`group hidden lg:flex items-center gap-1 p-3 rounded-md cursor-pointer transition-all hover:bg-primary hover:shadow-sm hover:scale-[1.02]`}
+              onClick={()=>navigate("/panel/actividad/contactos")}>
+              <FaRegCommentDots className='text-gray-700 text-lg transition-colors' />
+              <span className='text-gray-700 transition-colors text-sm'>
+                Mis contactos
+              </span>
+            </div>
+            <Tooltip title='Mis contactos' arrow className={`${menuOpen ? 'hidden' : ''}`}>
+            <div onClick={()=>navigate("/panel/actividad/contactos")} className='group lg:hidden rounded-full transition-all cursor-pointer hover:bg-primary hover:shadow-sm hover:scale-105'>
+              <FaRegCommentDots className='text-gray-700 text-xl lg:text-lg transition-colors' />
+            </div>
+          </Tooltip>
+          </>
+        )
+      }
 
       {/* Publicar */}
-      <div className='hidden lg:flex'>
-        <CustomButton
-          type='button'
-          variant='primary-outline'
-          size='md'
-          fontSize='14px'
-          fontWeight={400}
-          text='Publicar'
-          onClick={handleClickPublicar}
-        />
-      </div>
+      {
+        !isPanelPublicadorRoute && (
+          <div className='hidden lg:flex'>
+            <CustomButton
+              type='button'
+              variant='primary-outline'
+              size='md'
+              fontSize='14px'
+              fontWeight={400}
+              text='Publicar'
+              onClick={handleClickPublicar}
+            />
+          </div>
+        )
+      }
 
       {/* Ingresar o Usuario */}
       {!user ? (

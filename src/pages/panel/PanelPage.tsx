@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import Avisos from "../../components/panel/avisos/Avisos";
 import Cuenta from "../../components/panel/cuenta/Cuenta";
 import Actividad from "../../components/panel/actividad/Actividad";
+import Publicador from "../../components/panel/publicador/Publicador";
 
 const PanelPage = () => {
   const { option } = useParams<{ option: string }>();
@@ -9,11 +10,13 @@ const PanelPage = () => {
   const renderContent = () => {
     switch (option) {
         case "avisos":
-            return <Avisos />;
+          return <Avisos />;
         case "cuenta":
-            return <Cuenta />;
+          return <Cuenta />;
         case "actividad":
-            return <Actividad />;
+          return <Actividad />;
+        case "publicador":
+          return <Publicador />;
       default:
         return (
           <div>

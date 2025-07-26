@@ -39,8 +39,8 @@ const Notificaciones = () => {
 
   return (
     <div className="w-full">
-  <h3 className="text-xl sm:text-2xl font-bold mb-2">Ajustes de notificaciones</h3>
-  <p className="text-gray-600 text-sm sm:text-base mb-6">
+  <h3 className="text-xl font-bold mb-2">Ajustes de notificaciones</h3>
+  <p className="text-gray-600 text-sm mb-6">
     Activa las suscripciones para recibir novedades en tu correo electrónico.
   </p>
 

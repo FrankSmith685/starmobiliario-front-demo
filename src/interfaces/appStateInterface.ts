@@ -1,4 +1,5 @@
 import type { AuthLoginForm, AuthRegisterForm } from "./auth";
+import type { ProgressProperty } from "./inmueble";
 import type { UsuarioData } from "./user";
 
 export type ModeLoginType = "login_one" | "login_two" | "login_three" | "recover_one" | "recover_two" | "recover_three";
@@ -15,4 +16,5 @@ export interface AppState {
   user: UsuarioData | null;
   loadingUser: boolean;
   menuOpen: boolean;
+  progressProperty: ProgressProperty;
 }
