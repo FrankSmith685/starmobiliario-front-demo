@@ -77,26 +77,6 @@ const isComplete = user?.tipo_registro === "Completo";
         item.label !== "Cerrar sesión"
     );
 
-     
-
-  // const quickAccessToShow = quickAccess.filter((item) => {
-  //   const baseCondition = item.isActive === false;
-
-  //   if (isComplete) {
-  //     // Usuario completo → mostrar todo lo que pase baseCondition
-  //     return (baseCondition &&
-  //     item.label == "Ayudar" &&
-  //     item.label == "Cerrar sesión");
-  //   } else {
-  //     // Usuario incompleto o sin usuario → ocultar "Ayudar" y "Cerrar sesión"
-  //     return (
-  //       !baseCondition &&
-  //       item.label !== "Ayudar" &&
-  //       item.label !== "Cerrar sesión"
-  //     );
-  //   }
-  // });
-
 
   const onLogout=()=>{
     logout();

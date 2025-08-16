@@ -28,8 +28,6 @@ const ListaAvisos = () => {
   };
 
 
-
-
   return (
     <div className="space-y-4">
       {filtroAvisos.map((aviso) => {

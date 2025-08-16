@@ -10,8 +10,6 @@ const Cuenta = () => {
   const { progressPrincipalProperty } = useAppState();
   const { subsuboption } = useParams<{ subsuboption?: string }>();
 
-  // const allOptions = ["operacionypropiedad", "ubicacion", "caracteristicas"];
-
   // Define a helper map for steps
   const allowedOptionsByStep: { [key: number]: string[] } = {
     1: ["operacionypropiedad"],

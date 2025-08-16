@@ -77,11 +77,7 @@ const initialState: AppState = {
   filtroAvisos:[],
   isArchivado:false,
   seleccionadosAvisos:[]
-
 }
-
-
-
 
 export const AppProvider = ({ children }: Props) => {
   const [appState, dispatch] = useReducer(appReducer, initialState);
