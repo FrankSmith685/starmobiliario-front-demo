@@ -1,22 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-useless-escape */
 import { useMemo, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { menuData, quickAccess } from "./data/menuData";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppState } from "../../hooks/useAppState";
 
 const MainMenu = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeAlquilarTab, setActiveAlquilarTab] = useState<string>("Alquilar");
+  const {user} = useAppState();
 
   const location = useLocation();
   const isPanelRoute = location.pathname.startsWith("/panel");
    const navigate = useNavigate();
 
   const filteredItems = useMemo(() => {
-    return quickAccess.filter(
-      (item) => item.path && (item.isActive || item.isActive === undefined)
-    );
-  }, []);
+  const isComplete = user?.tipo_registro === "Completo";
+
+  return quickAccess.filter((item) => {
+    // Si está completo, solo mostramos los que NO están activos
+    if (isComplete) {
+      return item.path && (item.isActive === false || item.isActive === undefined);
+    }
+    // Si está incompleto, solo mostramos los que sí están activos o no tienen estado definido
+    return item.path && (item.isActive || item.isActive === undefined);
+  });
+}, [quickAccess, user?.tipo_registro]);
+
 
   const groupedByBase = useMemo(() => {
     const groups: { [key: string]: typeof filteredItems } = {};

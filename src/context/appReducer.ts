@@ -1,5 +1,5 @@
 import type { AppState } from "../interfaces/appStateInterface";
-import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_LOADING_USER, SET_LOGOUT, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_PROGRESS_PROPERTY, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_USER, type ActionTypes } from "../types/actionTypes";
+import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_FILTRO_AVISOS, SET_IS_ARCHIVADO, SET_LISTA_AVISOS, SET_LOADING_USER, SET_LOGOUT, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_NEW_INMUEBLE, SET_PROGRESS_PRINCIPAL_PROPERTY, SET_PROGRESS_PROPERTY, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_SELECCIONADOS_AVISOS, SET_USER, type ActionTypes } from "../types/actionTypes";
 
 export const appReducer = (state: AppState, action: ActionTypes): AppState => {
   switch (action.type) {
@@ -65,6 +65,18 @@ export const appReducer = (state: AppState, action: ActionTypes): AppState => {
       return { ...state, menuOpen: action.payload };
     case SET_PROGRESS_PROPERTY:
       return { ...state, progressProperty: action.payload };
+    case SET_NEW_INMUEBLE:
+      return { ...state, newInmueble: action.payload };
+    case SET_PROGRESS_PRINCIPAL_PROPERTY:
+      return { ...state, progressPrincipalProperty: action.payload };
+    case SET_LISTA_AVISOS:
+      return { ...state, listaAvisos: action.payload };
+    case SET_FILTRO_AVISOS:
+      return { ...state, filtroAvisos: action.payload };
+    case SET_IS_ARCHIVADO:
+      return { ...state, isArchivado: action.payload };
+    case SET_SELECCIONADOS_AVISOS:
+      return { ...state, seleccionadosAvisos: action.payload };
     default:
       return state;
   }

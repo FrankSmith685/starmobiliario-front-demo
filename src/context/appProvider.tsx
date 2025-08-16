@@ -44,7 +44,41 @@ const initialState: AppState = {
     totalSteps: 4,
     currentPath: "/panel/publicador/principales",
   },
-};
+  newInmueble:{
+    cod_inmueble:"",
+    cod_usuario:"",
+    titulo:null,
+    descripcion:null,
+    cod_tipo_inmueble:0,
+    cod_subtipo_inmueble:0,
+    cod_ubigeo:null,
+    cod_estado_inmueble:0,
+    operaciones:[],
+    caracteristicas:null,
+    generales:null,
+    amoblamientos:null,
+    multimedias:null,
+    precios:null
+  },
+  progressPrincipalProperty:{
+    step: 1,
+    totalSteps: 3,
+    currentPath: "/panel/publicador/principales/operacionypropiedad",
+  },
+  listaAvisos:{
+    avisos:[],
+    avisos_duplicados:0,
+    avisos_incompletos:0,
+    consultas_pendientes:0,
+    planes_activos:[],
+    productos_disponibles:0,
+    reportes_pendientes:0,
+  },
+  filtroAvisos:[],
+  isArchivado:false,
+  seleccionadosAvisos:[]
+
+}
 
 
 

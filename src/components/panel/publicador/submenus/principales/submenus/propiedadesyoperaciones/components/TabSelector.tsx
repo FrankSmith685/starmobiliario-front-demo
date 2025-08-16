@@ -1,27 +1,37 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
+import { useInmueble } from "../../../../../../../../hooks/useInmueble";
+import type { Operacion } from "../../../../../../../../interfaces/inmueble";
 
 interface TabSelectorProps {
-  selected: string | null;
-  onSelect: (value: string) => void;
+  selected: number | null;
+  onSelect: (value: number) => void;
 }
 
-const tabs = ["Venta", "Alquiler", "Temporada"];
-
 const TabSelector: React.FC<TabSelectorProps> = ({ selected, onSelect }) => {
+  const { getOperaciones } = useInmueble();
+  const [operaciones, setOperaciones] = useState<Operacion[]>([]);
+
+  useEffect(() => {
+    getOperaciones((data) => {
+      setOperaciones(data);
+    });
+  }, []);
+
   return (
     <div className="inline-flex rounded-sm border border-gray-300 overflow-hidden shadow-sm bg-white">
-      {tabs.map((tab, index) => (
+      {operaciones.map((operacion, index) => (
         <button
-          key={tab}
-          onClick={() => onSelect(tab)}
-          className={`relative px-5 h-[44px] md:h-[55px] text-sm font-medium transition-all duration-200 hover:cursor-pointer
-            ${selected === tab 
-              ? "bg-primary text-white font-semibold" 
-              : "text-gray-500  hover:bg-primary"}
+          key={operacion.cod_operacion}
+          onClick={() => onSelect(Number(operacion?.cod_operacion))}
+          className={`relative px-5 h-[44px] text-sm font-medium transition-all duration-200 hover:cursor-pointer
+            ${selected === operacion.cod_operacion
+              ? "bg-primary text-white font-semibold"
+              : "text-gray-500 hover:bg-primary "}
           `}
         >
-          {tab}
-          {index < tabs.length - 1 && (
+          {operacion.nombre}
+          {index < operaciones.length - 1 && (
             <span className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-5 bg-gray-300"></span>
           )}
         </button>

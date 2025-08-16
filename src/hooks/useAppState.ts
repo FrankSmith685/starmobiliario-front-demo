@@ -12,11 +12,19 @@ import {
   setRefreshtoken,
   setUser,
   setLoadingUser,
-  setMenuOpen
+  setMenuOpen,
+  setNewInmueble,
+  setProgressPrincipalProperty,
+  setListaAvisos,
+  setFiltroAvisos,
+  setIsArchivado,
+  setSeleccionadosAvisos
 } from "../context/actions/actions";
 import type { ModeLoginType } from "../interfaces/appStateInterface";
 import type { AuthLoginForm, AuthRegisterForm } from "../interfaces/auth";
 import type { UsuarioData } from "../interfaces/user";
+import type { NewInmueble, ProgressPrincipalProperty } from "../interfaces/inmueble";
+import type { Aviso, AvisosDTO } from "../interfaces/avisos";
 
 export const useAppState = () => {
   const context = useContext(AppContext);
@@ -39,6 +47,11 @@ export const useAppState = () => {
     setUser: (user: UsuarioData | null) => dispatch(setUser(user)),
     setLoadingUser: (loadingUser: boolean) => dispatch(setLoadingUser(loadingUser)),
     setMenuOpen: (menuOpen: boolean) => dispatch(setMenuOpen(menuOpen)),
-
+    setNewInmueble: (newInmueble: NewInmueble) => dispatch(setNewInmueble(newInmueble)),
+    setProgressPrincipalProperty: (progressPrincipalProperty: ProgressPrincipalProperty) => dispatch(setProgressPrincipalProperty(progressPrincipalProperty)),
+    setListaAvisos: (listaAvisos: AvisosDTO) => dispatch(setListaAvisos(listaAvisos)),
+    setFiltroAvisos: (filtroAvisos: Aviso[]) => dispatch(setFiltroAvisos(filtroAvisos)),
+    setIsArchivado: (isArchivado: boolean) => dispatch(setIsArchivado(isArchivado)),
+    setSeleccionadosAvisos: (seleccionadosAvisos: Aviso[]) => dispatch(setSeleccionadosAvisos(seleccionadosAvisos)),
   };
 };

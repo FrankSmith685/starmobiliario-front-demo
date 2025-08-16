@@ -108,7 +108,7 @@ export const CustomInput: FC<CustomInputProps> = ({
         ...(hasStartAdornment && {
           startAdornment: (
             <InputAdornment position="start">
-              {isSearch && <Search sx={{ color: current.color }} />}
+              {isSearch && <Search sx={{ color: '#1F2937' }} />}
               {icon}
             </InputAdornment>
           )

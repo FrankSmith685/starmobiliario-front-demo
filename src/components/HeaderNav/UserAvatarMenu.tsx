@@ -29,29 +29,37 @@ export const UserAvatarMenu = () => {
     };
 
     userMenuItemsData.forEach((item) => {
-      if (item?.isActive === false) return; 
-      const Icon = item.icon;
-      const handleClick = () => {
-        if (item.isLogout) {
-          onLogout();
-        } else if (item.path) {
-          navigate(item.path);
-        }
-      };
-      const element = (
-        <li
-          key={item.label}
-          onClick={handleClick}
-          className={`flex items-center gap-2 px-2 py-1 hover:bg-gray-100 rounded cursor-pointer ${
-            item.isLogout ? "text-red-800" : ""
-          }`}
-        >
-          <Icon className={item.isLogout ? "text-red-700" : "text-gray-700"} />
-          {item.label}
-        </li>
-      );
-      sections[item.section].push(element);
-    });
+    const isComplete = user?.tipo_registro === "Completo";
+    const mustSkip =
+      (isComplete && item?.isActive === true) ||
+      (!isComplete && item?.isActive === false);
+
+    if (mustSkip) return;
+
+    const Icon = item.icon;
+    const handleClick = () => {
+      if (item.isLogout) {
+        onLogout();
+      } else if (item.path) {
+        navigate(item.path);
+      }
+    };
+
+    const element = (
+      <li
+        key={item.label}
+        onClick={handleClick}
+        className={`flex items-center gap-2 px-2 py-1 hover:bg-gray-100 rounded cursor-pointer ${
+          item.isLogout ? "text-red-800" : ""
+        }`}
+      >
+        <Icon className={item.isLogout ? "text-red-700" : "text-gray-700"} />
+        {item.label}
+      </li>
+    );
+
+    sections[item.section].push(element);
+  });
 
     return (
       <>

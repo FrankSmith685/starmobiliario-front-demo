@@ -1,8 +1,9 @@
 import type { ModeLoginType } from "../../interfaces/appStateInterface";
 import type { AuthLoginForm, AuthRegisterForm } from "../../interfaces/auth";
-import type { ProgressProperty } from "../../interfaces/inmueble";
+import type { Aviso, AvisosDTO } from "../../interfaces/avisos";
+import type { NewInmueble, ProgressPrincipalProperty, ProgressProperty } from "../../interfaces/inmueble";
 import type { UsuarioData } from "../../interfaces/user";
-import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_LOADING_USER, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_PROGRESS_PROPERTY, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_USER } from "../../types/actionTypes";
+import { SET_ACCESSTOKEN, SET_AUTHLOGINFORM, SET_AUTHREGISTERFORM, SET_FILTRO_AVISOS, SET_IS_ARCHIVADO, SET_LISTA_AVISOS, SET_LOADING_USER, SET_MENU_OPEN, SET_MODAL, SET_MODE, SET_MODELOGIN, SET_NEW_INMUEBLE, SET_PROGRESS_PRINCIPAL_PROPERTY, SET_PROGRESS_PROPERTY, SET_REFRESHTOKEN, SET_REGISTERUSER, SET_SELECCIONADOS_AVISOS, SET_USER } from "../../types/actionTypes";
 
 export const setRegisterUser = (registerUser: string | null) => ({
   type: SET_REGISTERUSER,
@@ -66,7 +67,33 @@ export const setProgressProperty = (progressProperty: ProgressProperty) => ({
   payload: progressProperty,
 });
 
+export const setNewInmueble = (newInmueble: NewInmueble) => ({
+  type: SET_NEW_INMUEBLE,
+  payload: newInmueble,
+});
 
+export const setProgressPrincipalProperty = (progressPrincipalProperty: ProgressPrincipalProperty) => ({
+  type: SET_PROGRESS_PRINCIPAL_PROPERTY,
+  payload: progressPrincipalProperty,
+});
 
+export const setListaAvisos = (listaAvisos: AvisosDTO) => ({
+  type: SET_LISTA_AVISOS,
+  payload: listaAvisos,
+});
 
+export const setFiltroAvisos = (filtroAvisos: Aviso[]) => ({
+  type: SET_FILTRO_AVISOS,
+  payload: filtroAvisos,
+});
+
+export const setIsArchivado = (isArchivado: boolean) => ({
+  type: SET_IS_ARCHIVADO,
+  payload: isArchivado,
+});
+
+export const setSeleccionadosAvisos = (seleccionadosAvisos: Aviso[]) => ({
+  type: SET_SELECCIONADOS_AVISOS,
+  payload: seleccionadosAvisos,
+});
 

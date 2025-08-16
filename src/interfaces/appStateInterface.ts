@@ -1,5 +1,6 @@
 import type { AuthLoginForm, AuthRegisterForm } from "./auth";
-import type { ProgressProperty } from "./inmueble";
+import type { Aviso, AvisosDTO } from "./avisos";
+import type { NewInmueble, ProgressPrincipalProperty, ProgressProperty } from "./inmueble";
 import type { UsuarioData } from "./user";
 
 export type ModeLoginType = "login_one" | "login_two" | "login_three" | "recover_one" | "recover_two" | "recover_three";
@@ -17,4 +18,12 @@ export interface AppState {
   loadingUser: boolean;
   menuOpen: boolean;
   progressProperty: ProgressProperty;
+  newInmueble: NewInmueble;
+  progressPrincipalProperty : ProgressPrincipalProperty
+  listaAvisos: AvisosDTO;
+  filtroAvisos: Aviso[];
+  isArchivado: boolean;
+  seleccionadosAvisos: Aviso[];
+
+  
 }
