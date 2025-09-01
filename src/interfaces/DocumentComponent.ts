@@ -127,3 +127,14 @@ export interface CustomSwitchProps {
   disabled?: boolean;
   size?: "md" | "lg";
 }
+
+// Custom Tabs
+export interface CustomTabsProps {
+  value: number
+  onChange: (event: React.SyntheticEvent, newValue: number) => void
+  labels: string[]
+  className?: string
+  tabClassName?: string
+  variant?: Variant
+  isMobile?: boolean
+}
